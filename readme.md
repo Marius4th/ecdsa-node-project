@@ -1,5 +1,9 @@
 ## ECDSA Node
 
+Example source: https://github.com/alchemyplatform/ecdsa-node
+Exercise project of week 1 of Alchemy University Ethereum Dev. Bootcamp.
+
+### Exercise Notes
 This project is an example of using a client and server to facilitate transfers between different addresses. Since there is just a single server on the back-end handling transfers, this is clearly very centralized. We won't worry about distributed consensus for this project.
 
 However, something that we would like to incoporate is Public Key Cryptography. By using Elliptic Curve Digital Signatures we can make it so the server only allows transfers that have been signed for by the person who owns the associated address.
@@ -8,7 +12,15 @@ However, something that we would like to incoporate is Public Key Cryptography. 
 For an overview of this project as well as getting started instructions, check out the following video:
 
 https://www.loom.com/share/0d3c74890b8e44a5918c4cacb3f646c4
- 
+
+### Solution Notes
+
+The solution incorporates very simple authentication using ECDSA Signatures, but it is **NOT A SECURE APPROACH**.
+Beware this approach is susceptible to man-in-the-middle attacks.
+An attacker could intercept the signature and use it to do as they please.
+Also the recipient and amount aren't encrypted and could be changed as well.
+The optimal approach is to use the signature and Diffie-Hellman to encrypt all data.
+
 ### Client
 
 The client folder contains a [react app](https://reactjs.org/) using [vite](https://vitejs.dev/). To get started, follow these steps:
@@ -16,7 +28,7 @@ The client folder contains a [react app](https://reactjs.org/) using [vite](http
 1. Open up a terminal in the `/client` folder
 2. Run `npm install` to install all the depedencies
 3. Run `npm run dev` to start the application 
-4. Now you should be able to visit the app at http://127.0.0.1:5173/
+4. Now you should be able to visit the app at localhost:5173/
 
 ### Server
 

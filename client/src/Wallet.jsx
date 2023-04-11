@@ -13,7 +13,7 @@ d84038a3ba78422087214d28b33db9ce0ef7d4ae8db5b199579f4b4793fa6fb4
 66f7d1d42f3ac4a461cc42b13d9f55e22c66312f9f780550bc2c3fb3d409f136
 */
 
-// Data in the wallet mustn't be exposed outside (must stay in the client's machine)
+// Data in the wallet mustn't be exposed to the outside (must stay in the client's machine)
 class Wallet extends React.Component {
   constructor(props) {
     super(props);

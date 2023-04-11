@@ -15,11 +15,12 @@ const balances = {
   "cd6b721a7dac6b2d11b59be4347f4e411f7162f2": 75,
 };
 
-const publicKeys = {
+/*
+Test Public Keys
   "3ae915625ccc3cb9fa8caa084ebb15b364e15b3a": "04fd7b269f83ec441121f2f0cb9656b35ff8351acd192c2fb8b924714c473e88bb56aec1484e30c53a87add7677d67c86c10c1886d773dc068193ad3cdc4b165c6",
   "3ec7c0cd9d29162b510a5f358daf4568b1106f29": "041c22869a2a40c1ffa7a5dad847f7c8affc822c172f0c71261bd1cde1530d3f4de9f0072cef4551628b7485672a81759fd535a31920e79180562fe30bb63af3cc",
   "cd6b721a7dac6b2d11b59be4347f4e411f7162f2": "04285bd36b89a064590f8e6df3fe63c6edb6457cda0ad1dd076ed09c584f80193da6b5958c8dc73427900f9c04bb8e83c058e056a2e26b04c33300160239dd10c7",
-};
+*/
 
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
@@ -27,15 +28,20 @@ app.get("/balance/:address", (req, res) => {
   res.send({ balance });
 });
 
+// IMPORTANT!!!
+// This is only a simplistic exercise and is NOT A SECURE APPROACH.
+// This approach is susceptible to man-in-the-middle attacks.
+// An attacker could intercept the signature and use it to do as they please.
+// Also the recipient and amount aren't encrypted and could be changed as well.
+// The optimal approach is to use the signature and Diffie-Hellman to encrypt all data.
 app.post("/send", (req, res) => {
-  const { sender, signature, hashedMessage, recipient, amount } = req.body;
+  const { signature, hashedMessage, recipient, amount } = req.body;
 
   const publicKey = recoverKey(hashedMessage, signature);
   const senderAddr = getAddress(publicKey);
-  const pk = publicKeys[sender];
 
-  // Simple verification with signature and previously shared public key
-  if (verifyIdentity(signature[0], hashedMessage, pk) && senderAddr === sender) {
+  // Simple verification with signature
+  if (verifyIdentity(signature[0], hashedMessage, publicKey)) {
 
     if (!balances[senderAddr] || balances[senderAddr] < amount) {
       res.status(400).send({ message: "Not enough funds!" });
