@@ -16,9 +16,9 @@ https://www.loom.com/share/0d3c74890b8e44a5918c4cacb3f646c4
 ## Solution Notes
 
 The solution incorporates very simple authentication using ECDSA Signatures, but it is **NOT A SECURE APPROACH**.
-Beware this approach is susceptible to man-in-the-middle attacks.
-An attacker could intercept the signature and use it to do as they please.
-Also the recipient and amount aren't encrypted and could be changed as well.
+
+Beware this approach is susceptible to man-in-the-middle attacks. An attacker could intercept the signature and use it to do as they please. Also the recipient and amount aren't encrypted and could be changed as well.
+
 The optimal approach is to use the signature and Diffie-Hellman to encrypt all data.
 
 ## Client
