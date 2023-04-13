@@ -33,7 +33,8 @@ app.get("/balance/:address", (req, res) => {
 // This approach is susceptible to man-in-the-middle attacks.
 // An attacker could intercept the signature and use it to do as they please.
 // Also the recipient and amount aren't encrypted and could be changed as well.
-// The optimal approach is to use the signature and Diffie-Hellman to encrypt all data.
+// The optimal approach is to sign all the transaction data and sent everything over a secure ssl connection.
+// Also use a nonce to make sure the transaction won't be executed more than once
 app.post("/send", (req, res) => {
   const { signature, hashedMessage, recipient, amount } = req.body;
 
